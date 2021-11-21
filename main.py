@@ -27,6 +27,7 @@ terminal ={
     "else" : "K",
     "pass" : "Z",
     "continue" : "C"
+    "NONE" : "X"
 }
 
 def findNumberBeforeLetter(string):
