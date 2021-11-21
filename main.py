@@ -26,8 +26,18 @@ terminal ={
     "elif" : "J",
     "else" : "K",
     "pass" : "Z",
-    "continue" : "C"
-    "NONE" : "X"
+    "continue" : "C",
+    "NONE" : "X",
+    "True" : "n",
+    "False" : "o",
+    "not" : "p",
+    "is" : "q",
+    "in" : "r",
+    "or" : "s",
+    "and" : "t",
+    "class" : "u",
+    "def" : "v",
+    "return" : "w"
 }
 
 def findNumberBeforeLetter(string):
