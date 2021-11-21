@@ -45,13 +45,14 @@ def deleteUnitProduction(CFG):
         while not clear:
             clear = True
             for product in products:
-                grammar = product[0]
-                if len(product) == 1 and isParam(grammar):
-                    products.remove(product)
-                    newProduct = dc([product for product in CFG[product[0]] if product not in products])
-                    products.extend(newProduct)
-                    clear = False
-                    break
+                if len(product) == 1:
+                    grammar = product[0]
+                    if isParam(grammar):
+                        products.remove(product)
+                        newProduct = dc([product for product in CFG[product[0]] if product not in products])
+                        products.extend(newProduct)
+                        clear = False
+                        break
     return CFG
 
 #tahap terakhir mengubah CFG to CNG yaitu mengubah bentuknya
@@ -69,29 +70,33 @@ def changeForm(CFG):
         #membuat kerangka aturan baru
         idx = 1
         for tempTerminal in tempTerminals:
-            tempRules.update({str(param)+"_Main_Rule(s)_"+str(idx):[[tempTerminal]]})
+            tempRules.update({str(param)+"_MAIN_RULE(s)_"+str(idx):[[tempTerminal]]})
             i = 0
             for product in products:
                 count = len(product)
                 if count > 1:
                     for j in range(count):
                         if len(products[i][j]) == len(tempTerminal):
-                            print(products[i][j])
-                            products[i][j] = products[i][j].replace(tempTerminal, str(param)+"_Main_Rule(s)_"+str(idx))
+                            products[i][j] = products[i][j].replace(tempTerminal, str(param)+"_MAIN_RULE(s)_"+str(idx))
                 i += 1
             idx += 1
         #mengubah nonTerminal AB -> C atau A -> terminal
         idx = 1
         for product in products:
             while len(product) > 2:
-                tempRules.update({str(param)+"_Extra_Rule(s)_"+str(idx):[[product[0],product[1]]]})
+                tempRules.update({str(param)+"_EXTRA_RULE(s)_"+str(idx):[[product[0],product[1]]]})
                 product = product[1:]
-                products[0] = str(param)+"_Extra_Rule(s)_"+str(idx)
+                products[0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
                 idx += 1
     CFG.update(tempRules)       
     return CFG
 
 def convertCFGtoCNG(CFG):
+    CFGnonUnit = deleteUnitProduction(CFG)
+    CNF = changeForm(CFGnonUnit)
+    return CNF
+
+def convertCFGtoCNGwithTimeLapse(CFG):
     checkGrammar(CFG)
     print("===============================================================================================================")    
     CFGnonUnit = deleteUnitProduction(CFG)
@@ -100,10 +105,9 @@ def convertCFGtoCNG(CFG):
     CNF = changeForm(CFGnonUnit)
     checkGrammar(CNF)
     print("===============================================================================================================")
-    return CNF
 
-CFG = getCFG("test.txt")
-convertCFGtoCNG(CFG)
+CFG = getCFG("cfg.txt")
+convertCFGtoCNGwithTimeLapse(CFG)
 
 
 
