@@ -1,10 +1,6 @@
 import sys
 import re
 
-from converter import CFGfromFile, CFGtoCNF, printGrammar
-from cykparser import CYKParser
-
-
 
 class colors:
     HEADER = '\033[95m'
