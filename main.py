@@ -23,6 +23,7 @@ terminal ={
     "else" : "K",
     "pass" : "Z",
     "continue" : "C",
+    "break" : "B",
     "NONE" : "X",
     "True" : "n",
     "False" : "o",
@@ -79,7 +80,7 @@ def convertCodeInput(codeInput):
     comments =  re.findall(r'([\'\"])\1\1(.*?)\1{3}', convertedCodeInput, re.DOTALL)
     for i in range(len(comments)):
         cmts = comments[i][0]*3 + comments[i][1] + comments[i][0]*3
-        convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * mltstr[i][1].count("\n"))
+        convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * convertedCodeInput[i][1].count("\n"))
     
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
     for i in range(len(strings)):
@@ -94,12 +95,7 @@ def convertCodeInput(codeInput):
 
 if __name__ == "__main__":
     
-
-    CFG = CFGfromFile("cfg.txt")
-    CNF = CFGtoCNF(CFG)
-
-
-    filePath = sys.argv[1] if len(sys.argv) >= 2 else "file-path"
+    filePath = sys.argv[1] if len(sys.argv) >= 2 else "testCode.py"
 
     try :
         f = open(filePath, "r")
@@ -127,9 +123,8 @@ if __name__ == "__main__":
         print("-----------------------------------------")
         for i, line in enumerate(markedCodeInput.split("\n")):
             if len(line.replace(" ", "")) != 0:
-                if (idx)
                 print(str(i+1) + "| " + line)
         print("-----------------------------------------")
     else :
-        CYKParser(convertedCodeInput, CNF, codeInput)
+        pass
         
