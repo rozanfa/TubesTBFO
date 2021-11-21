@@ -83,12 +83,12 @@ def convertCodeInput(codeInput):
     comments =  re.findall(r'([\'\"])\1\1(.*?)\1{3}', convertedCodeInput, re.DOTALL)
     for i in range(len(comments)):
         cmts = comments[i][0]*3 + comments[i][1] + comments[i][0]*3
-        convertedCodeInput = convertedCodeInput.replace(cmts, "z\n" * mltstr[i][1].count("\n"))
+        convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * mltstr[i][1].count("\n"))
     
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
     for i in range(len(strings)):
         strs = str[i][0] + str[i][1] + str[1][0]
-        convertedCodeInput = convertedCodeInput.replace(strs, "z")
+        convertedCodeInput = convertedCodeInput.replace(strs, "x")
 
     convertedCodeInput = convertedCodeInput.replace(" ", "")
     convertedCodeInput = re.sub("xzy{1}:[xyz]{1},","", convertedCodeInput)
@@ -122,18 +122,18 @@ if __name__ == "__main__":
     print("Checking your code!")
     print("Please wait..")
 
-    print("Your code :")
-    for i, line in enumerate(markedCodeInput.split("\n")):
-        if len(line.replace(" ", "")) != 0:
-            print(str(i+1) + "| " + line)
-    
     print(convertedCodeInput)
 
-    print("\n
+    print("\n")
     if (len(convertedCodeInput) == 0):
-        print("Accepted")
-        print("\n===============================================================")
-        exit(0)
-    
-
-    CYKParser(convertedCodeInput, CNF, codeInput)
+        print("Congratulations! Your code is accepted")
+        print("Your code :")
+        print("-----------------------------------------")
+        for i, line in enumerate(markedCodeInput.split("\n")):
+            if len(line.replace(" ", "")) != 0:
+                if (idx)
+                print(str(i+1) + "| " + line)
+        print("-----------------------------------------")
+    else :
+        CYKParser(convertedCodeInput, CNF, codeInput)
+        
