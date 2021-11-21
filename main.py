@@ -1,6 +1,7 @@
 import sys
 import re
-
+from CYKAlgorithm import CYKAlgorithm
+from CFG_CNF_converter import getCFG, convertCFGtoCNG
 
 class colors:
     HEADER = '\033[95m'
@@ -95,6 +96,9 @@ def convertCodeInput(codeInput):
 
 if __name__ == "__main__":
     
+    CFG= getCFG("cfg.txt")
+    CNF=convertCFGtoCNG(CFG)
+
     filePath = sys.argv[1] if len(sys.argv) >= 2 else "testCode.py"
 
     try :
@@ -126,5 +130,5 @@ if __name__ == "__main__":
                 print(str(i+1) + "| " + line)
         print("-----------------------------------------")
     else :
-        pass
+        CYKAlgorithm(convertedCodeInput, codeInput, CNF)
         
