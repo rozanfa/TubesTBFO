@@ -80,7 +80,7 @@ def changeForm(CFG):
                             products[i][j] = products[i][j].replace(tempTerminal, str(param)+"_Main_Rule(s)_"+str(idx))
                 i += 1
             idx += 1
-        #mengubah nonTerminal A -> BC  atau A -> terminal
+        #mengubah nonTerminal AB -> C atau A -> terminal
         idx = 1
         for product in products:
             while len(product) > 2:
