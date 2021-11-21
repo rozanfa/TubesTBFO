@@ -59,12 +59,11 @@ def convertCodeInput(codeInput):
             l, r = regex.span()
             convertedCodeInput += codeInput[:l]
             if regex.group() not in terminal:
-                convertedCodeInput += "X"
+                convertedCodeInput += "z"
             else :
                 convertedCodeInput += terminal[regex.group()]
             codeInput = codeInput[r:]
 
-    plainCode = codeInput
 
     convertedCodeInput = re.sub("#.*", "", convertedCodeInput)
     convertedCodeInput = re.sub("[0-9]+", "y", convertedCodeInput)
@@ -74,7 +73,7 @@ def convertCodeInput(codeInput):
     comments =  re.findall(r'([\'\"])\1\1(.*?)\1{3}', convertedCodeInput, re.DOTALL)
     for i in range(len(comments)):
         cmts = comments[i][0]*3 + comments[i][1] + comments[i][0]*3
-        convertedCodeInput = convertedCodeInput.replace(cmt, "z\n" * mltstr[i][1].count("\n"))
+        convertedCodeInput = convertedCodeInput.replace(cmts, "z\n" * mltstr[i][1].count("\n"))
     
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
     for i in range(len(strings)):
@@ -120,7 +119,7 @@ if __name__ == "__main__":
     
     print(convertedCodeInput)
 
-    print("\n=========================== VERDICT ===========================\n")
+    print("\n
     if (len(convertedCodeInput) == 0):
         print("Accepted")
         print("\n===============================================================")
