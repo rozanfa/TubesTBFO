@@ -1,1 +1,1 @@
-import pepega
+print(1)

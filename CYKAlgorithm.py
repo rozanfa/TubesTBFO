@@ -68,11 +68,13 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
         print("Your code :")
         print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
         print(colors.WARNING, end = "")
+        errorline = []
         for i in range(len(listLines)):
             if (i==index-1):
                 print(str(i+1).rjust(3) + ' | ' + listLines[i]+ colors.FAIL + "    <-- Error here" + colors.WARNING)
+                errorline += [i+1]
             else:
                 print(str(i+1).rjust(3) + ' | ' + listLines[i])
         print(colors.ENDC, end = "")
         print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
-        print(colors.FAIL + "Error in line 1" + colors.ENDC)
+        print(colors.FAIL + "Error in line " + str(errorline[0]) + colors.ENDC)
