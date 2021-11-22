@@ -25,16 +25,19 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             for element in data[j]:
-                if (element[0] == convertedCodeInput[i - 1]):
-                    table[1][i][j] = True #input terminal awal pada tabel
-                    break
+                if len(element) != 0:
+                    if (element[0] == convertedCodeInput[i - 1]):
+                        table[1][i][j] = True #input terminal awal pada tabel
+                        break
 
     for i in range(2, n + 1):
         for j in range(1, (n - i + 2)):
             for k in range(1, i):
                 for l in range(1, m + 1):
                     for element in data[l]:
-                        if (len(element) != 1): #jika elemen merupakan variabel
+                        print("elmt :", element)
+                        if (len(element) > 1 and element is not str): #jika elemen merupakan variabel
+                            
                             var1 = keyword[element[0]]
                             var2 = keyword[element[1]]
                             if (table[k][j][var1] and table[i - k][j + k][var2]):

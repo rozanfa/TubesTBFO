@@ -13,7 +13,7 @@ class colors:
     ENDC = '\033[0m'
 
 terminal ={
-    "from" : "P",
+    "from" : "B",
     "import" : "Q",
     "as" : "R",
     "for" : "F",
@@ -28,14 +28,15 @@ terminal ={
     "NONE" : "X",
     "True" : "n",
     "False" : "o",
-    "not" : "p",
+    "not" : "A",
     "is" : "q",
     "in" : "r",
     "or" : "s",
     "and" : "t",
     "class" : "u",
     "def" : "v",
-    "return" : "w"
+    "return" : "w",
+    "range" : "H"
 }
 
 def findNumberBeforeLetter(string):
@@ -72,17 +73,22 @@ def convertCodeInput(codeInput):
                 convertedCodeInput += terminal[regex.group()]
             codeInput = codeInput[r:]
 
-
+    # Hapus single line komentar
     convertedCodeInput = re.sub("#.*", "", convertedCodeInput)
-    convertedCodeInput = re.sub("[0-9]+", "y", convertedCodeInput)
+
+    # Ubah angka jadi p
+    convertedCodeInput = re.sub("[0-9]+", "p", convertedCodeInput)
+
+    # Ubah unaccepted variable jadi R
     convertedCodeInput = re.sub("[0-9]+[A-Za-z_]+", "R", convertedCodeInput)
 
-
+    # Ubah multiline comments jadi x\n
     comments =  re.findall(r'([\'\"])\1\1(.*?)\1{3}', convertedCodeInput, re.DOTALL)
     for i in range(len(comments)):
         cmts = comments[i][0]*3 + comments[i][1] + comments[i][0]*3
         convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * convertedCodeInput[i][1].count("\n"))
     
+    # Ubah string jadi x
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
     for i in range(len(strings)):
         strs = str[i][0] + str[i][1] + str[1][0]

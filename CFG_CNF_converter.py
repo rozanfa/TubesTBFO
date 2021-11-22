@@ -24,7 +24,7 @@ def getCFG(cfgpath) :
             rawProducts = [rawLineProduct.split() for rawLineProduct in rawLineProducts]
             products = []
             for rawProduct in rawProducts:
-                products.append(["|" if grammar == "or_bit" else " " if grammar == "spaci" else "\n" if grammar == "endl" else grammar for grammar in rawProduct])
+                products.append(["|" if grammar == "or_bit" else " " if grammar == "spasi" else "\n" if grammar == "endl" else grammar for grammar in rawProduct])
             CFG.update({param:products})
     return CFG
 
@@ -106,8 +106,10 @@ def convertCFGtoCNGwithTimeLapse(CFG):
     checkGrammar(CNF)
     print("===============================================================================================================")
 
-CFG = getCFG("cfg.txt")
-convertCFGtoCNGwithTimeLapse(CFG)
+
+if __name__ == "__main__":
+    CFG = getCFG("cfg.txt")
+    convertCFGtoCNGwithTimeLapse(CFG)
 
 
 
