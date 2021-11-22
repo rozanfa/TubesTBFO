@@ -51,8 +51,6 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
         print("-----------------------------------------")
     else :
         index = 1
-        for i in range(n,0,-1):
-            print(table[i][1][1])
         for i in range(n, 0, -1):
             if (table[i][1][1]):
                 break
