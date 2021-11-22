@@ -28,8 +28,8 @@ terminal ={
     "class" : "u",#
     "def" : "v",#
     "return" : "w",
-    "raise" : "C",#
-    "with" : "D"#
+    "raise" : "a",#
+    "with" : "b"#
 }
 
 
