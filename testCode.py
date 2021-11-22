@@ -1,2 +1,1 @@
-'''
-pepega'''
+print(a)
