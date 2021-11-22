@@ -2,6 +2,7 @@ import sys
 import re
 from CYKAlgorithm import CYKAlgorithm
 from CFG_CNF_converter import getCFG, convertCFGtoCNG
+from converter import CFGfromFile, CFGtoCNF
 from printcolors import colors
 
 
