@@ -100,9 +100,6 @@ if __name__ == "__main__":
     print("Checking your code!")
     print("Please wait..")
 
-    print(convertedCodeInput)
-
-    print("\n")
     if (len(convertedCodeInput.replace(" ", "").replace("\n", "")) == 0):
         print("Congratulations! Your code is accepted")
         print(colors.HEADER + "Your code :")
