@@ -1,1 +1,2 @@
-print(10)
+def findNumberBeforeLetter(string):
+    highlightedString = ""

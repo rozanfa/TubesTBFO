@@ -1,5 +1,5 @@
-import string as st
-from copy import deepcopy as dc
+import string
+from copy import deepcopy
 
 #untuk menampilkan grammar, berfungsi untuk membantu tracking perubahan pada grammar
 def checkGrammar(dictionary):
@@ -13,89 +13,81 @@ def checkGrammar(dictionary):
                 print(product[i], "| ", end="") 
 
 #membaca CFG dari file
-def getCFG(cfgpath) :
-    CFG = {}
-    with open(cfgpath) as file:
-        rawlines = file.read().split('\n')
-        lines = [rawline.split("->") for rawline in rawlines if len(rawline.split("->")) == 2]
+def getCFG(grammarPath) :
+    CFG_RULE = {}
+    with open(grammarPath, 'r') as f:
+        lines = [line.split('->')
+                    for line in f.read().split('\n')
+                    if len(line.split('->')) == 2]
         for line in lines:
-            param = line[0].replace(" ","")
-            rawLineProducts = line[1].split("|")
-            rawProducts = [rawLineProduct.split() for rawLineProduct in rawLineProducts]
-            products = []
-            for rawProduct in rawProducts:
-                products.append(["|" if grammar == "or_bit" else " " if grammar == "spasi" else "\n" if grammar == "endl" else grammar for grammar in rawProduct])
-            CFG.update({param:products})
-    return CFG
+            variable = line[0].replace(" ", "")
+            rawProductions = [rawProduction.split() for rawProduction in line[1].split('|')]
+            production = []
+            for rawProduction in rawProductions:
+                production.append(["|" if grammar == "or_bit" else " " if grammar == "spasi" else "\n" if grammar == "endl" else grammar for grammar in rawProduction])
+            CFG_RULE.update({variable: production})
+    return CFG_RULE
 
 #mengecek apakah unit satuan yang ada termasuk kedalam terminal atau bukan
-def isParam(grammar):
-    if len(grammar) == 1:
+def isVariable(item):
+    if len(item) == 1:
         return False
-    for character in grammar:
-        if character not in (st.ascii_uppercase + "_"):
+    for char in item:
+        if char not in (string.ascii_uppercase + '_' + string.digits):
             return False
     return True
 
 #untuk menghapis unit production CFG
-def deleteUnitProduction(CFG):
-    for param in CFG:
-        products = CFG[param]
-        clear = False
-        while not clear:
-            clear = True
-            for product in products:
-                if len(product) == 1:
-                    grammar = product[0]
-                    if isParam(grammar):
-                        products.remove(product)
-                        newProduct = dc([product for product in CFG[product[0]] if product not in products])
-                        products.extend(newProduct)
-                        clear = False
-                        break
+def removeUnitProduction(CFG):
+    for variable in CFG:
+        productions = CFG[variable]
+        repeat = True
+        while repeat:
+            repeat = False
+            for production in productions:
+                if len(production) == 1 and isVariable(production[0]):
+                    productions.remove(production)
+                    newProduction = deepcopy([production for production in CFG[production[0]]
+                                        if production not in productions])
+                    productions.extend(newProduction)
+                    repeat = True
+                    break
     return CFG
 
 #tahap terakhir mengubah CFG to CNG yaitu mengubah bentuknya
-def changeForm(CFG):
-    tempRules = {}
-    for param in CFG:
-        tempTerminals = []
-        products = CFG[param]
-        #mencari letak terminal
-        findTerminal = [product for product in products if len(product) > 1]
-        for terminal in findTerminal:
-            for grammar in terminal:
-                if not(isParam(grammar)) and grammar not in  tempTerminals:
-                    tempTerminals.append(grammar)
-        #membuat kerangka aturan baru
+def updateToCNF(CFG):
+    newRule = {}
+    for variable in CFG:
+        terminals = []
+        productions = CFG[variable]
+        # Search terminals
+        processProduction = [production for production in productions if len(production) > 1]
+        for production in processProduction:
+            for item in production:
+                if not(isVariable(item)) and item not in terminals:
+                    terminals.append(item)
+        # Create new rule and update production
+        for i, terminal in enumerate(terminals):
+            newRule.update({f"{variable}_TERM_{i + 1}": [[terminal]]})
+            for idx, j in enumerate(productions):
+                if len(j) > 1:
+                    for k in range(len(j)):
+                        if len(productions[idx][k]) == len(terminal):
+                            productions[idx][k] = productions[idx][k].replace(terminal, f"{variable}_TERM_{i + 1}")
+        # Update productions so match A -> BC or A -> terminal
         idx = 1
-        for tempTerminal in tempTerminals:
-            tempRules.update({str(param)+"_MAIN_RULE(s)_"+str(idx):[[tempTerminal]]})
-            i = 0
-            for product in products:
-                count = len(product)
-                if count > 1:
-                    for j in range(count):
-                        if len(products[i][j]) == len(tempTerminal):
-                            products[i][j] = products[i][j].replace(tempTerminal, str(param)+"_MAIN_RULE(s)_"+str(idx))
-                i += 1
-            idx += 1
-        #mengubah nonTerminal AB -> C atau A -> terminal
-        idx = 1
-        i = 0
-        for product in products:
-            while len(products[i]) > 2:
-                tempRules.update({str(param)+"_EXTRA_RULE(s)_"+str(idx):[[product[0],product[1]]]})
-                products[i] = products[i][1:]
-                products[i][0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
+        for i in range(len(productions)):
+            while len(productions[i]) > 2:
+                newRule.update({f"{variable}_EXT_{idx}": [[productions[i][0], productions[i][1]]]})
+                productions[i] = productions[i][1:]
+                productions[i][0] = f"{variable}_EXT_{idx}"
                 idx += 1
-            i += 1
-    CFG.update(tempRules)       
+    CFG.update(newRule)
     return CFG
 
 def convertCFGtoCNG(CFG):
-    CFGnonUnit = deleteUnitProduction(CFG)
-    CNF = changeForm(CFGnonUnit)
+    CFG = removeUnitProduction(CFG)
+    CNF = updateToCNF(CFG)
     return CNF
 
 def convertCFGtoCNGwithTimeLapse(CFG):
