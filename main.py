@@ -102,8 +102,8 @@ def convertCodeInput(codeInput):
 
 if __name__ == "__main__":
     
-    CFG= getCFG("cfg.txt")
-    CNF=convertCFGtoCNG(CFG)
+    CFG= getCFG("test.txt")
+    CNF= convertCFGtoCNG(CFG)
 
     filePath = sys.argv[1] if len(sys.argv) >= 2 else "testCode.py"
 
