@@ -82,12 +82,14 @@ def changeForm(CFG):
             idx += 1
         #mengubah nonTerminal AB -> C atau A -> terminal
         idx = 1
+        i = 0
         for product in products:
-            while len(product) > 2:
+            while len(products[i]) > 2:
                 tempRules.update({str(param)+"_EXTRA_RULE(s)_"+str(idx):[[product[0],product[1]]]})
-                product = product[1:]
-                product[0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
+                products[i] = products[i][1:]
+                products[i][0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
                 idx += 1
+            i += 1
     CFG.update(tempRules)       
     return CFG
 
