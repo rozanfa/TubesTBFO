@@ -33,7 +33,6 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
             for k in range(1, i):
                 for l in range(1, m + 1):
                     for element in data[l]:
-                        # print("elmt :", element)
                         if (len(element)!=1): #jika elemen merupakan variabel
                             var1 = keyword[element[0]]
                             var2 = keyword[element[1]]
