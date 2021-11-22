@@ -1,2 +1,3 @@
-def findNumberBeforeLetter(string):
-    highlightedString = ""
+'''
+pepega
+'''

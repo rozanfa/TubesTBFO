@@ -66,7 +66,7 @@ def convertCodeInput(codeInput):
     comments =  re.findall(r'([\'\"])\1\1(.*?)\1{3}', convertedCodeInput, re.DOTALL)
     for i in range(len(comments)):
         cmts = comments[i][0]*3 + comments[i][1] + comments[i][0]*3
-        convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * convertedCodeInput[i][1].count("\n"))
+        convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * comments[i][1].count("\n"))
     
     # Ubah string jadi x
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
@@ -103,11 +103,11 @@ if __name__ == "__main__":
     print(convertedCodeInput)
 
     print("\n")
-    if (len(convertedCodeInput) == 0):
+    if (len(convertedCodeInput.replace(" ", "").replace("\n", "")) == 0):
         print("Congratulations! Your code is accepted")
         print("Your code :")
         print("-----------------------------------------")
-        for i, line in enumerate(convertedCodeInput.split("\n")):
+        for i, line in enumerate(codeInput.split("\n")):
             if len(line.replace(" ", "")) != 0:
                 print(str(i+1) + "| " + line)
         print("-----------------------------------------")
