@@ -2,15 +2,8 @@ import sys
 import re
 from CYKAlgorithm import CYKAlgorithm
 from CFG_CNF_converter import getCFG, convertCFGtoCNG
+from printcolors import colors
 
-class colors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
 
 terminal ={
     "from" : "B",
@@ -91,7 +84,7 @@ def convertCodeInput(codeInput):
     # Ubah string jadi x
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
     for i in range(len(strings)):
-        strs = str[i][0] + str[i][1] + str[1][0]
+        strs = strings[i][0] + strings[i][1] + strings[i][0]
         convertedCodeInput = convertedCodeInput.replace(strs, "x")
 
     convertedCodeInput = convertedCodeInput.replace(" ", "")

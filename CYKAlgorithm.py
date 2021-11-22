@@ -1,3 +1,5 @@
+from printcolors import colors
+
 def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
     m = len(CNF)
     n = len(convertedCodeInput)
@@ -48,10 +50,13 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
     if (table[n][1][1]): #jika tabel akhir bernilai True
         print("Congratulations! Your code is accepted")
         print("Your code :")
-        print("-----------------------------------------")
+        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.OKGREEN, end = "")
         for i in range(len(listLines)):
-            print(listLines[i])
-        print("-----------------------------------------")
+            print(str(i+1).rjust(3) + ' | ' + listLines[i])
+        print(colors.OKGREEN, end = "")
+        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.OKBLUE + "ACCEPTED" + colors.ENDC)
     else :
         index = 1
         for i in range(n, 0, -1):
@@ -59,8 +64,15 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
                 break
             elif (convertedCodeInput[i - 1] == '\n'):
                 index = endLines[i - 1]
+        print("Sorry, your code is not accepted")
+        print("Your code :")
+        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.WARNING, end = "")
         for i in range(len(listLines)):
             if (i==index-1):
-                print(listLines[i]+"    <-- Error line "+str(index))
+                print(str(i+1).rjust(3) + ' | ' + listLines[i]+ colors.FAIL + "    <-- Error here" + colors.WARNING)
             else:
-                print(listLines[i])
+                print(str(i+1).rjust(3) + ' | ' + listLines[i])
+        print(colors.ENDC, end = "")
+        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.FAIL + "Error in line 1" + colors.ENDC)

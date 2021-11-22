@@ -1,2 +1,1 @@
-i = 10
-a = 1 - i
+import pepega
