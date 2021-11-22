@@ -2,49 +2,35 @@ import sys
 import re
 from CYKAlgorithm import CYKAlgorithm
 from CFG_CNF_converter import getCFG, convertCFGtoCNG
-from converter import CFGfromFile, CFGtoCNF
 from printcolors import colors
 
 
 terminal ={
-    "from" : "B",
-    "import" : "Q",
-    "as" : "R",
-    "for" : "F",
-    "while" : "W",
-    "in" : "G",
-    "if" : "I",
-    "elif" : "J",
-    "else" : "K",
-    "pass" : "Z",
-    "continue" : "C",
-    "break" : "B",
-    "NONE" : "X",
-    "True" : "n",
-    "False" : "o",
-    "not" : "A",
-    "is" : "q",
-    "in" : "r",
-    "or" : "s",
-    "and" : "t",
-    "class" : "u",
-    "def" : "v",
+    "from" : "B",#
+    "import" : "Q",#
+    "as" : "R",#
+    "for" : "F",#
+    "while" : "W",#
+    "in" : "G",#
+    "if" : "I",#
+    "elif" : "J",#
+    "else" : "K",#
+    "pass" : "Z",#
+    "continue" : "C",#
+    "break" : "B",#
+    "NONE" : "X",#
+    "True" : "n",#
+    "False" : "o",#
+    "not" : "A",#
+    "is" : "q",#
+    "or" : "s",#
+    "and" : "t",#
+    "class" : "u",#
+    "def" : "v",#
     "return" : "w",
-    "range" : "H"
+    "raise" : "C",#
+    "with" : "D"#
 }
-
-def findNumberBeforeLetter(string):
-    highlightedString = ""
-    while string:
-        notAcc = re.search("[0-9]+[A-Za-z_]+", string)
-        if notAcc == None :
-            highlightedString += string
-            string = ""
-        else :
-            l, r = notAcc.span()
-            highlightedString += string[:l] + colors.FAIL + "E" + colors.ENDC
-            string = string[r:]
-    return highlightedString
 
 
 def convertCodeInput(codeInput):
@@ -107,10 +93,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(str(e))
         exit(0)
-    
-    print(findNumberBeforeLetter(codeInput))
-
-    markedCodeInput = findNumberBeforeLetter(codeInput)
 
     convertedCodeInput = convertCodeInput(codeInput)
     
@@ -125,7 +107,7 @@ if __name__ == "__main__":
         print("Congratulations! Your code is accepted")
         print("Your code :")
         print("-----------------------------------------")
-        for i, line in enumerate(markedCodeInput.split("\n")):
+        for i, line in enumerate(convertedCodeInput.split("\n")):
             if len(line.replace(" ", "")) != 0:
                 print(str(i+1) + "| " + line)
         print("-----------------------------------------")
