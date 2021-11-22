@@ -86,7 +86,7 @@ def changeForm(CFG):
             while len(product) > 2:
                 tempRules.update({str(param)+"_EXTRA_RULE(s)_"+str(idx):[[product[0],product[1]]]})
                 product = product[1:]
-                products[0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
+                product[0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
                 idx += 1
     CFG.update(tempRules)       
     return CFG
