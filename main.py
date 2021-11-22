@@ -105,12 +105,13 @@ if __name__ == "__main__":
     print("\n")
     if (len(convertedCodeInput.replace(" ", "").replace("\n", "")) == 0):
         print("Congratulations! Your code is accepted")
-        print("Your code :")
+        print(colors.HEADER + "Your code :")
         print("-----------------------------------------")
         for i, line in enumerate(codeInput.split("\n")):
             if len(line.replace(" ", "")) != 0:
-                print(str(i+1) + "| " + line)
-        print("-----------------------------------------")
+                print(colors.HEADER + str(i+1)  + "| " + colors.OKGREEN + line)
+        print(colors.HEADER + "-----------------------------------------")
+        print(colors.OKBLUE + "ACCEPTED" + colors.ENDC)
     else :
         CYKAlgorithm(convertedCodeInput, codeInput, CNF)
         
