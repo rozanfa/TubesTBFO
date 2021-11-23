@@ -93,11 +93,11 @@ def print_banner():
     print("                     *@@@@@@@@@@@@@@@@@@@ @@&(            ")
     print("                      /@@@@@@@@@@@@@@@@@*    (/(       ")
     print("                        @@@@@@@@@@@@@@@@/                  ")
-    print("   |_|| |  ~|~ /|/\      /@@@@@@@@@@@@@@@                 ")
-    print("   | ||_|   | /-|\/         @@@@@@@@@@@@@/           ")      
+    print(" "+colors.LIGHTRED+"  |_|| |  ~|~ /|/\  "+colors.ENDC+"    /@@@@@@@@@@@@@@@                 ")
+    print(" "+colors.LIGHTRED+"  | ||_|   | /-|\/  "+colors.ENDC+"       @@@@@@@@@@@@@/           ")      
     print("                              @@@@@@@@@@@@@   ")       
-    print("   /`/\|\/||)|| [~|)             &@@@@@@@@@@&#  ")        
-    print("   \,\/|  || ||_[_|\                 &&&&&&&&&&&&*")      
+    print(" "+colors.LIGHTRED+"  /`/\|\/||)|| [~|) "+colors.ENDC+"            &@@@@@@@@@@&#  ")        
+    print(" "+colors.LIGHTRED+"  \,\/|  || ||_[_|\ "+colors.ENDC+"                &&&&&&&&&&&&*")      
     print("                                        *&&&&&&&&&&&&&&&&&&&&")
       
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
             if len(line.replace(" ", "")) != 0:
                 print(colors.HEADER + str(i+1)  + "| " + colors.OKGREEN + line)
         print(colors.HEADER + "-------------------------------------------------------------------")
-        print(colors.OKBLUE + "ACCEPTED" + colors.ENDC)
+        print(colors.OKCYAN + "ACCEPTED" + colors.ENDC)
     else :
         CYKAlgorithm(convertedCodeInput, codeInput, CNF)
         

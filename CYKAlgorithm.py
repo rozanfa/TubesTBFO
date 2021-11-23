@@ -53,7 +53,7 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
             print(colors.HEADER + str(i+1).rjust(3) + ' | ' + colors.OKGREEN + listLines[i])
         print(colors.OKGREEN, end = "")
         print(colors.HEADER + "-------------------------------------------------------------------" + colors.HEADER )
-        print(colors.OKBLUE + "ACCEPTED" + colors.ENDC)
+        print(colors.OKCYAN + "ACCEPTED" + colors.ENDC)
     else :
         index = 1
         for i in range(n, 0, -1):
