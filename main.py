@@ -105,11 +105,11 @@ def print_banner():
       
 
 if __name__ == "__main__":
-    
+    print_banner()
     CFG= getCFG("cfg_copy.txt")
     CNF= convertCFGtoCNG(CFG)
 
-    filePath = sys.argv[1] if len(sys.argv) >= 2 else "testCode.py"
+    filePath = sys.argv[1] if len(sys.argv) >= 2 else input("Input file name: ")
 
     try :
         f = open(filePath, "r")
@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     convertedCodeInput = convertCodeInput(codeInput)
     #print(convertedCodeInput)
-    print_banner()
+    
 
     print("Checking your code!")
     print("Please wait..\n")
