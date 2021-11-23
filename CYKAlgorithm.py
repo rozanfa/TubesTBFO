@@ -47,12 +47,12 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
     if (table[n][1][1]): #jika tabel akhir bernilai True
         print("Congratulations! Your code is accepted\n")
         print(colors.HEADER + "Your code :")
-        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.HEADER + "-------------------------------------------------------------------" + colors.HEADER )
         print(colors.OKGREEN, end = "")
         for i in range(len(listLines)):
             print(colors.HEADER + str(i+1).rjust(3) + ' | ' + colors.OKGREEN + listLines[i])
         print(colors.OKGREEN, end = "")
-        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.HEADER + "-------------------------------------------------------------------" + colors.HEADER )
         print(colors.OKBLUE + "ACCEPTED" + colors.ENDC)
     else :
         index = 1
@@ -63,7 +63,7 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
                 index = endLines[i - 1]
         print("Sorry, your code is not accepted\n")
         print(colors.HEADER + "Your code :")
-        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
+        print(colors.HEADER + "-------------------------------------------------------------------" + colors.HEADER )
         print(colors.WARNING, end = "")
         errorline = []
         for i in range(len(listLines)):
@@ -73,5 +73,5 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
             else:
                 print(colors.HEADER + str(i+1).rjust(3) + ' | ' + colors.WARNING + listLines[i])
         print(colors.ENDC, end = "")
-        print(colors.HEADER + "-----------------------------------------" + colors.HEADER )
-        print(colors.FAIL + "Error in line " + str(errorline[0]) + colors.ENDC)
+        print(colors.HEADER + "-------------------------------------------------------------------" + colors.HEADER )
+        print(colors.FAIL + "Syntax Error in Line " + str(errorline[0]) + colors.ENDC)
