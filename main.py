@@ -74,8 +74,11 @@ def convertCodeInput(codeInput):
         strs = strings[i][0] + strings[i][1] + strings[i][0]
         convertedCodeInput = convertedCodeInput.replace(strs, "x")
 
+    # Ngilangin spasi
     convertedCodeInput = convertedCodeInput.replace(" ", "")
     convertedCodeInput = re.sub("xzy{1}:[xyz]{1},","", convertedCodeInput)
+
+    # Tambah endline di akhir
     convertedCodeInput = convertedCodeInput +"\n"
 
     return convertedCodeInput
