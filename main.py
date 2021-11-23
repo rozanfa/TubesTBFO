@@ -53,21 +53,21 @@ def convertCodeInput(codeInput):
                 convertedCodeInput += terminal[regex.group()]
             codeInput = codeInput[r:]
 
-    # Hapus single line komentar
-    convertedCodeInput = re.sub("#.*", "", convertedCodeInput)
-
-    # Ubah angka jadi p
-    convertedCodeInput = re.sub("[0-9]+", "p", convertedCodeInput)
-
     # Ubah unaccepted variable jadi R
     convertedCodeInput = re.sub("[0-9]+[A-Za-z_]+", "R", convertedCodeInput)
+
+    # Hapus single line komentar
+    convertedCodeInput = re.sub("#.*", "", convertedCodeInput)
 
     # Ubah multiline comments jadi x\n
     comments =  re.findall(r'([\'\"])\1\1(.*?)\1{3}', convertedCodeInput, re.DOTALL)
     for i in range(len(comments)):
         cmts = comments[i][0]*3 + comments[i][1] + comments[i][0]*3
         convertedCodeInput = convertedCodeInput.replace(cmts, "x\n" * comments[i][1].count("\n"))
-    
+
+    # Ubah bilangan jadi p
+    convertedCodeInput = re.sub("[0-9]+", "p", convertedCodeInput)
+
     # Ubah string jadi x
     strings = re.findall(r'([\'\"])(.*?)\1{1}', convertedCodeInput, re.DOTALL)
     for i in range(len(strings)):
