@@ -3,9 +3,9 @@ from copy import deepcopy as dc
 
 #untuk menampilkan grammar, berfungsi untuk membantu tracking perubahan pada grammar
 def checkGrammar(dictionary):
-    for param in dictionary:
-        print(param,"->",end="")
-        products = dictionary[param]
+    for var in dictionary:
+        print(var,"->",end="")
+        products = dictionary[var]
         for i in range(len(products)):
             if i == len(products) - 1 :
                 print(products[i])
@@ -14,10 +14,10 @@ def checkGrammar(dictionary):
 
 def writeGrammar(dictionary, filename):
     file = open(filename, "w")
-    for param in dictionary:
-        file.write(param)
+    for var in dictionary:
+        file.write(var)
         file.write(" -> ")
-        products = dictionary[param]
+        products = dictionary[var]
         for i in range(len(products)):
             for j in range(len(products[i])):
                 if i == len(products) - 1 :
@@ -61,7 +61,7 @@ def getCFG(cfgpath) :
             if len(rawline.split("->")) == 2:
                 lines.append(rawline.split("->"))
         for line in lines:
-            param = line[0].replace(" ","")
+            var = line[0].replace(" ","")
             rawLineProducts = line[1].split("|")
             rawProducts = []
             for rawLineProduct in rawLineProducts:
@@ -79,11 +79,11 @@ def getCFG(cfgpath) :
                     else :
                         grammarTemp.append(grammar)
                 products.append(grammarTemp)
-            CFG.update({param:products})
+            CFG.update({var:products})
     return CFG
 
 #mengecek apakah unit satuan yang ada termasuk kedalam terminal atau bukan
-def isParam(grammar):
+def isVar(grammar):
     if len(grammar) == 1:
         return False
     else:
@@ -95,15 +95,15 @@ def isParam(grammar):
 #untuk menghapis unit production CFG
 def deleteUnitProduction(CFG):
     temp = dc(CFG)
-    for param in CFG:
-        products = CFG[param]
+    for var in CFG:
+        products = CFG[var]
         clear = False
         while not clear:
             clear = True
             for product in products:
                 if len(product) == 1:
                     grammar = product[0]
-                    if isParam(grammar):
+                    if isVar(grammar):
                         products.remove(product)
                         newProduct = []
                         for product in temp[grammar]:
@@ -117,9 +117,9 @@ def deleteUnitProduction(CFG):
 #tahap terakhir mengubah CFG to CNG yaitu mengubah bentuknya
 def changeForm(CFG):
     tempRules = {}
-    for param in CFG:
+    for var in CFG:
         tempTerminals = []
-        products = CFG[param]
+        products = CFG[var]
         #mencari letak terminal
         findTerminal = []
         for product in products:
@@ -127,27 +127,27 @@ def changeForm(CFG):
                 findTerminal.append(product)
         for terminal in findTerminal:
             for grammar in terminal:
-                if not(isParam(grammar)) and grammar not in tempTerminals:
+                if not(isVar(grammar)) and grammar not in tempTerminals:
                     tempTerminals.append(grammar)
         #membuat kerangka aturan baru
         idx = 1
         for tempTerminal in tempTerminals:
-            tempRules.update({str(param)+"_MAIN_RULE(s)_"+str(idx):[[tempTerminal]]})
+            tempRules.update({str(var)+"_MAIN_RULE(s)_"+str(idx):[[tempTerminal]]})
             for i in range(len(products)):
                 count = len(products[i])
                 if count > 1:
                     for j in range(count):
                         if products[i][j] == tempTerminal:
-                            products[i][j] = products[i][j].replace(tempTerminal, str(param)+"_MAIN_RULE(s)_"+str(idx))
+                            products[i][j] = products[i][j].replace(tempTerminal, str(var)+"_MAIN_RULE(s)_"+str(idx))
             idx += 1
         #mengubah nonTerminal AB -> C atau A -> terminal
         idx = 1
         for i in range(len(products)):
             count = len(products[i])
             while count > 2:
-                tempRules.update({str(param)+"_EXTRA_RULE(s)_"+str(idx):[[products[i][0],products[i][1]]]})
+                tempRules.update({str(var)+"_EXTRA_RULE(s)_"+str(idx):[[products[i][0],products[i][1]]]})
                 products[i] = products[i][1:]
-                products[i][0] = str(param)+"_EXTRA_RULE(s)_"+str(idx)
+                products[i][0] = str(var)+"_EXTRA_RULE(s)_"+str(idx)
                 idx += 1
                 count = len(products[i])
     CFG.update(tempRules)       
