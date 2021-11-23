@@ -7,11 +7,49 @@ def checkGrammar(dictionary):
         print(param,"->",end="")
         products = dictionary[param]
         for i in range(len(products)):
-            if i == len(products) -1 :
+            if i == len(products) - 1 :
                 print(products[i])
             else :
                 print(products[i], "|", end = "")
 
+def writeGrammar(dictionary, filename):
+    file = open(filename, "w")
+    for param in dictionary:
+        file.write(param)
+        file.write(" -> ")
+        products = dictionary[param]
+        for i in range(len(products)):
+            for j in range(len(products[i])):
+                if i == len(products) - 1 :
+                    if products[i][j] == " ":
+                        file.write("spaci")
+                        file.write(" ")
+                    elif products[i][j] == "|":
+                        file.write("or_bit")
+                        file.write(" ")
+                    elif products[i][j] == "\n":
+                        file.write("endl")
+                        file.write(" ")
+                    else:
+                        file.write(products[i][j])
+                        file.write(" ")
+                    if j == len(products[i]) - 1:
+                        file.write("\n")                    
+                else :
+                    if products[i][j] == " ":
+                        file.write("spaci")
+                        file.write(" ")
+                    elif products[i][j] == "|":
+                        file.write("or_bit")
+                        file.write(" ")
+                    elif products[i][j] == "\n":
+                        file.write("endl")
+                        file.write(" ")
+                    else:
+                        file.write(products[i][j])
+                        file.write(" ")
+                    if j == len(products[i]) - 1:
+                        file.write(" | ")     
 #membaca CFG dari file
 def getCFG(cfgpath) :
     CFG = {}
@@ -138,4 +176,6 @@ def convertCFGtoCNGwithTimeLapse(CFG):
 
 if __name__ == "__main__":
     CFG = getCFG("cfg.txt")
-    convertCFGtoCNGwithTimeLapse(CFG)
+    CNF = convertCFGtoCNG(CFG)
+    checkGrammar(CNF)
+    writeGrammar(CNF,"cnf_converted.txt")
