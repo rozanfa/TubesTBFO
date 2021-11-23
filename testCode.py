@@ -1,4 +1,2 @@
-with open(cfgpath) as file:
-    rawlines = file.read().split('\n')
-    lines = []
-
+                if not(isParam(grammar)) and grammar not in  tempTerminals:
+                    tempTerminals.append(grammar)
