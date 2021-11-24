@@ -153,7 +153,7 @@ def changeForm(CFG):
     CFG.update(tempRules)       
     return CFG
 
-def convertCFGtoCNG(CFG):
+def convertCFGtoCNF(CFG):
     #rules2
     CFGnonUnit = deleteUnitProduction(CFG)
     #rules4

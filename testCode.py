@@ -1,3 +1,3 @@
-ortho_matrix = [[]]
-ortho_matrix[:6::] = [1,2,3]
-print(ortho_matrix)
+import numpy as np
+
+print(np.array([[1,2,3],[2,3,4]]))

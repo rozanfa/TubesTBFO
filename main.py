@@ -1,7 +1,7 @@
 import sys
 import re
 from CYKAlgorithm import CYKAlgorithm
-from CFG_CNF_converter import getCFG, convertCFGtoCNG
+from CFG_CNF_converter import getCFG, convertCFGtoCNF
 from printcolors import colors
 
 
@@ -106,8 +106,8 @@ def print_banner():
 
 if __name__ == "__main__":
     print_banner()
-    CFG= getCFG("cfg_copy.txt")
-    CNF= convertCFGtoCNG(CFG)
+    CFG= getCFG("cfg.txt")
+    CNF= convertCFGtoCNF(CFG)
 
     filePath = sys.argv[1] if len(sys.argv) >= 2 else input("Input file name: ")
 
