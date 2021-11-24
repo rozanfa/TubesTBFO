@@ -1,6 +1,3 @@
-def findGadgetByYear(year, operator, arr=[1,2,3]):
-
-    for i in range(1,n):
-        if operator == '=':
-            if int(arr[i][5]) == year:
-                printGroup(i, arr)
+ortho_matrix = [[]]
+ortho_matrix[:6::] = [1,2,3]
+print(ortho_matrix)
