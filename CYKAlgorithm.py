@@ -6,30 +6,33 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
     listLines = codeInput.split('\n')
     endLines = {}
     ctr = 0
+
     #mengambil data baris
     for i in range (n):
         if (convertedCodeInput[i] == '\n'):
             ctr += 1
             endLines[i] = ctr
+
     #membuat tabel
     table = [[[0 for i in range(m + 1)] for j in range(n + 1)] for k in range(n + 1)]
     keyword = {}
     data = [None] * (m + 1)
-    # Set dictionary convertedCodeInput dan mengambil data dari CNF
+
+    # buat dictionary grammar pada CNF dan mengambil data dari CNF
     count=0
     for key in CNF:
         data[count + 1] = CNF[key]
         keyword[key] = count + 1
         count+=1
-    # Algoritmanya
+
+    # Algoritma CYK
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             for element in data[j]:
                 if (element[0] == convertedCodeInput[i - 1]):
                     table[1][i][j] = True #input terminal awal pada tabel
-                    break
-                
-
+                    break           
+    
     for i in range(2, n + 1):
         for j in range(1, (n - i + 2)):
             for k in range(1, i):
@@ -42,9 +45,8 @@ def CYKAlgorithm(convertedCodeInput,codeInput,CNF):
                                 table[i][j][l] = True
                                 break
 
-
     #hasil CYK
-    if (table[n][1][1]): #jika tabel akhir bernilai True
+    if (table[n][1][1]): #jika tabel index teratas bernilai True
         print("Congratulations! Your code is accepted\n")
         print(colors.HEADER + "Your code :")
         print(colors.HEADER + "-------------------------------------------------------------------" + colors.HEADER )
